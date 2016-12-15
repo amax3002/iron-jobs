@@ -1,18 +1,22 @@
-var express = require('express');
 
-var server = express();
+var express = require('express');
 var bodyParser = require('body-parser');
 
-
-console.log('Hello World');
+var server = express();
 
 server.set('port', process.env.PORT || 3000);
 
 server.use(bodyParser.json());
 
+server.use(function logger(req, res, next) {
+    console.log('REQUEST sent to ', req.path);
+
+    next();
+});
+
 server.use(express.static('client/public'));
 
-// server.use('/jobs', require('./routes/jobs'));
+server.use('/jobs', require('./routes/jobs'));
 
 server.listen(server.get('port'), function serverStarted(err) {
   if(err) {

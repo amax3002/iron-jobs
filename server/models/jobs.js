@@ -1,10 +1,10 @@
-var dbConect = require('./db-connect');
+var dbConnect = require('./db-connect');
 
 module.exports = {
-  getAll,
-  getOne,
-  create,
-  destroy
+  getAll
+  // getOne,
+  // create,
+  // destroy
 };
 
 
