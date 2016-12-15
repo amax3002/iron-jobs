@@ -16,7 +16,7 @@ server.use(function logger(req, res, next) {
 
 server.use(express.static('client/public'));
 
-server.use('/jobs', require('./routes/jobs'));
+server.use('/api/jobs', require('./routes/jobs'));
 
 server.listen(server.get('port'), function serverStarted(err) {
   if(err) {

@@ -19,4 +19,19 @@ router.get('/:id([a-f0-9]{24})', function getAllJobs(req, res) {
     res.json({ id: req.params.id, company: req.params.company, link: req.params.link });
 });
 
+
+router.post('/', function createJob(req, res) {
+    console.log( req.body );
+
+    jobsModel.create(req.body, function dataCreated(err, data) {
+        if (err) {
+          console.log(err);
+          res.status(500).send('Uh oh...couldn\'t get your data');
+          return;
+        }
+        res.json( data );
+    });
+});
+
+
 module.exports = router;
