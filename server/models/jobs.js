@@ -37,9 +37,10 @@ function getOne(id, done) {
         done(err, null);
         return;
     }
+    console.log(id, 'this is id for a single job');
     db.collection('jobs')
       .findOne({_id: new ObjectID(id)}, function callback(err, data) {
-        cleanData = {
+        var cleanData = {
           'id': data._id,
           'company': data.company,
           'notes': data.notes,
@@ -72,8 +73,15 @@ function destroy(data, done) {
           return;
         }
         db.collection('jobs')
-          .findOne({_id: new ObjectID(id)}, function callback(err, data) {
-            done(null, data);
+        .findOne({_id: new ObjectID(data)}, function callback(err, data) {
+          var cleanData = {
+            'id': data._id,
+            'company': data.company,
+            'notes': data.notes,
+            'link': data.link,
+            'createTime': data.createTime
+          }
+          done(null, cleanData);
           });
       });
     }

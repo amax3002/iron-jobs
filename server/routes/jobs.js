@@ -17,7 +17,7 @@ router.get('/', function allJobs(req, res) {
 
 
 router.get('/:id([a-f0-9]{24})', function getAJob(req, res) {
-  jobsModel.getOne(req.param.id, function dataRetriever(err, data) {
+  jobsModel.getOne(req.params.id, function dataRetriever(err, data) {
     if (err) {
       console.log(err);
       res.status(500).send('Uh oh...couldn\'t get your data');
@@ -47,12 +47,14 @@ router.post('/', function createJob(req, res) {
 });
 
 router.delete('/:id', function removeJob(req, res) {
-  if (err) {
-    console.log(err);
-    res.status(500).send('Uh oh...couldn\'t get your data');
-    return;
-  }
-
+  jobsModel.destroy(req.params.id, function dataDelete(err, data) {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Uh oh...couldn\'t get your data');
+      return;
+    }
+  res.json(data);
+  });
 })
 
 module.exports = router;
